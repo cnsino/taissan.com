@@ -1,10 +1,5 @@
 /*电子钟字体*/
-@font-face {
-    font-family: 'UnidreamLED';
-    src: url("https://unpkg.zhimg.com/akilar-candyassets/fonts/UnidreamLED.ttf");
-    font-display: swap;
-  }
-  div#runtime {
+div#runtime {
     width: 280px;
     margin: auto;
     color: #fff;
