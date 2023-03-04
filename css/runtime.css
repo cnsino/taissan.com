@@ -10,7 +10,8 @@
     color: #fff;
     padding-inline: 5px;
     border-radius: 10px;
-    background-color: rgba(0,0,0,0.7);
+    /* background-color: rgba(0,0,0,0.7); */
+    background: rgba(255,255,255, .0);
     font-family: 'UnidreamLED';
   }
   [data-theme="dark"] div#runtime {
