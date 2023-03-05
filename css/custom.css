@@ -349,3 +349,14 @@ body,
 /* 以下代表透明度为0.7 */
 background: rgba(255,255,255, .0);
 }
+
+.icon-xxx:before {
+  content: "\e600";
+}
+/* 卡片处小图标 */
+.card_icon {
+  /* 修改颜色 */
+  /* color: blue; */
+  /* 修改大小 */
+  font-size: 24px;
+}
