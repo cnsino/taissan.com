@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3931995 */
-  src: url('//at.alicdn.com/t/c/font_3931995_vn533ej8cv.woff2?t=1677991154146') format('woff2'),
-       url('//at.alicdn.com/t/c/font_3931995_vn533ej8cv.woff?t=1677991154146') format('woff'),
-       url('//at.alicdn.com/t/c/font_3931995_vn533ej8cv.ttf?t=1677991154146') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_3931995_ryk2kmvkov.woff2?t=1677997065805') format('woff2'),
+       url('//at.alicdn.com/t/c/font_3931995_ryk2kmvkov.woff?t=1677997065805') format('woff'),
+       url('//at.alicdn.com/t/c/font_3931995_ryk2kmvkov.ttf?t=1677997065805') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,82 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-julia:before {
+  content: "\e65f";
+}
+
+.icon-apple:before {
+  content: "\e633";
+}
+
+.icon-rust:before {
+  content: "\e685";
+}
+
+.icon-java:before {
+  content: "\f1d7";
+}
+
+.icon-js:before {
+  content: "\ec68";
+}
+
+.icon-python:before {
+  content: "\e70f";
+}
+
+.icon-rocket:before {
+  content: "\e7bb";
+}
+
+.icon-reddit:before {
+  content: "\e764";
+}
+
+.icon-earth:before {
+  content: "\e6c0";
+}
+
+.icon-baike:before {
+  content: "\e626";
+}
+
+.icon-wikipedia:before {
+  content: "\e689";
+}
+
+.icon-zhihu:before {
+  content: "\e87c";
+}
+
+.icon-facebook1:before {
+  content: "\e64e";
+}
+
+.icon-discord1:before {
+  content: "\e675";
+}
+
+.icon-img:before {
+  content: "\e67c";
+}
+
+.icon-search:before {
+  content: "\e82e";
+}
+
+.icon-mail:before {
+  content: "\e812";
+}
+
+.icon-film1:before {
+  content: "\e618";
+}
+
+.icon-tag1:before {
+  content: "\e7f0";
 }
 
 .icon-Docker:before {
@@ -152,4 +228,3 @@
 .icon-category:before {
   content: "\e63b";
 }
-

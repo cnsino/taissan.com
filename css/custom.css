@@ -354,9 +354,17 @@ background: rgba(255,255,255, .0);
   content: "\e600";
 }
 /* 卡片处小图标 */
+
+/* .head_icon { */
+  /* 修改颜色 */
+  /* color: blue; */
+  /* 修改大小 */
+  /* font-size: 18px;
+} */
+
 .card_icon {
   /* 修改颜色 */
   /* color: blue; */
   /* 修改大小 */
-  font-size: 24px;
+  font-size: 20px;
 }
