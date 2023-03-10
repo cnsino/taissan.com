@@ -15,6 +15,8 @@
           
           <category> 编程大陆 </category>
           
+          <category> 盘蛇教 </category>
+          
       </categories>
       
       
@@ -31,7 +33,7 @@
     
     
     <entry>
-      <title>【如何系列】Ubuntu安装最新docker</title>
+      <title>【如何百科】Ubuntu安装最新docker</title>
       <link href="/2023/03/06/1678175207.html"/>
       <url>/2023/03/06/1678175207.html</url>
       
@@ -41,6 +43,8 @@
       <categories>
           
           <category> 万法天书 </category>
+          
+          <category> 如何百科 </category>
           
       </categories>
       
@@ -67,6 +71,8 @@
           
           <category> 编程大陆 </category>
           
+          <category> 盘蛇教 </category>
+          
       </categories>
       
       
@@ -81,7 +87,7 @@
     
     
     <entry>
-      <title>【如何系列】Linux (WSL) 子系统如何与Windows通信</title>
+      <title>【如何百科】Linux (WSL) 子系统如何与Windows通信</title>
       <link href="/2023/02/26/1677410190.html"/>
       <url>/2023/02/26/1677410190.html</url>
       
@@ -91,6 +97,8 @@
       <categories>
           
           <category> 万法天书 </category>
+          
+          <category> 如何百科 </category>
           
       </categories>
       
@@ -106,7 +114,7 @@
     
     
     <entry>
-      <title>【未知】测试Katex的公式支持程度</title>
+      <title>【杂记】测试Katex的公式支持程度</title>
       <link href="/2023/02/26/1678109183.html"/>
       <url>/2023/02/26/1678109183.html</url>
       
@@ -116,6 +124,8 @@
       <categories>
           
           <category> 混元圣记 </category>
+          
+          <category> 杂记 </category>
           
       </categories>
       
@@ -131,7 +141,7 @@
     
     
     <entry>
-      <title>【未知】使用Github访问Google</title>
+      <title>【杂记】使用Github访问Google</title>
       <link href="/2023/02/26/1677410182.html"/>
       <url>/2023/02/26/1677410182.html</url>
       
@@ -141,6 +151,8 @@
       <categories>
           
           <category> 混元圣记 </category>
+          
+          <category> 杂记 </category>
           
       </categories>
       
@@ -169,6 +181,8 @@
           
           <category> 信息安全 </category>
           
+          <category> 漏洞分析 </category>
+          
       </categories>
       
       
@@ -183,7 +197,7 @@
     
     
     <entry>
-      <title>【如何系列】pip 离线安装第三方库及依赖</title>
+      <title>【如何百科】pip 离线安装第三方库及依赖</title>
       <link href="/2023/02/26/1677407864.html"/>
       <url>/2023/02/26/1677407864.html</url>
       
@@ -193,6 +207,8 @@
       <categories>
           
           <category> 万法天书 </category>
+          
+          <category> 如何百科 </category>
           
       </categories>
       
