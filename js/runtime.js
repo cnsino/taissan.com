@@ -27,10 +27,10 @@ setInterval(() => {
       time[4] = nol(second);
     }
     if ((Number(time[2])<22) && (Number(time[2])>7)){
-      currentTimeHtml ="<img class='boardsign' src='/imgs/sunrise.svg' title='距离百年老店也就差不到一百年~'><div id='runtime'>本站已经运行了 " + time[0] + ' 年 ' + time[1] + ' 天 ' + time[2] + ' : ' + time[3] + ' : ' + time[4] + ' </div>';
+      currentTimeHtml ="<img class='boardsign' src='/imgs/svg/sunrise.svg' title='距离百年老店也就差不到一百年~'><div id='runtime'>本站已经运行了 " + time[0] + ' 年 ' + time[1] + ' 天 ' + time[2] + ' : ' + time[3] + ' : ' + time[4] + ' </div>';
     }
     else{
-      currentTimeHtml ="<img class='boardsign' src='/imgs/sunset.svg' title='这个点了应该去睡觉啦，熬夜对身体不好哦'><div id='runtime'>本站已经运行了 " + time[0] + ' 年 ' + time[1] + ' 天 ' + time[2] + ' : ' + time[3] + ' : ' + time[4] + ' </div>';
+      currentTimeHtml ="<img class='boardsign' src='/imgs/svg/sunset.svg' title='这个点了应该去睡觉啦，熬夜对身体不好哦'><div id='runtime'>本站已经运行了 " + time[0] + ' 年 ' + time[1] + ' 天 ' + time[2] + ' : ' + time[3] + ' : ' + time[4] + ' </div>';
     }
     document.getElementById("workboard").innerHTML = currentTimeHtml;
   }, 1000);
