@@ -229,8 +229,8 @@ crossbeam <span class="token operator">=</span> <span class="token string">"0.8.
 crossbeam <span class="token operator">=</span> <span class="token string">"0.8.2"</span>
 crossbeam-channel <span class="token operator">=</span> <span class="token string">"0.5.7"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>  使用 <code>crossbeam</code> 和 <code>crossbeam-channel</code> 两个 crate 创建了一个并行的管道。管道有一个数据源和一个数据接收器，数据在从源到接收器的过程中由两个工作线程并行处理。<br>
-  使用容量由 <code>crossbeam_channel::bounded</code> 分配的有界信道。生产者必须在它自己的线程上，因为它产生的消息比工作线程处理它们的速度快（因为工作线程休眠了半秒）——这意味着生产者将在对 <code>[crossbeam_channel::Sender::send]</code> 调用时阻塞半秒，直到其中一个工作线程对信道中的数据处理完毕。也请注意，信道中的数据由最先接收它的任何工作线程调用，因此每个消息都传递给单个工作线程，而不是传递给两个工作线程。<br>
-  通过迭代器 <code>crossbeam_channel::Receiver::iter</code>方法从信道读取数据，这将会造成阻塞，要么等待新消息，要么直到信道关闭。因为信道是在 <code>crossbeam::scope</code>范围内创建的，我们必须通过 <code>drop</code> 手动关闭它们，以防止整个程序阻塞工作线程的 <code>for</code> 循环。可以将对 <code>drop</code> 的调用视作不再发送消息的信号。</p>
+  使用容量由 <code>crossbeam_channel::bounded</code> 分配的有界信道。生产者必须在它自己的线程上，因为它产生的消息比工作线程处理它们的速度快（因为工作线程休眠了半秒）——这意味着生产者将在对 <code>[crossbeam_channel::Sender::send]</code> 调用时阻塞半秒，直到其中一个工作线程对信道中的数据处理完毕。也请注意，信道中的数据由最先接收它的任何工作线程调用，因此每个消息都传递给单个工作线程，而不是传递给两个工作线程。</p>
+<p>  通过迭代器 <code>crossbeam_channel::Receiver::iter</code>方法从信道读取数据，这将会造成阻塞，要么等待新消息，要么直到信道关闭。因为信道是在 <code>crossbeam::scope</code>范围内创建的，我们必须通过 <code>drop</code> 手动关闭它们，以防止整个程序阻塞工作线程的 <code>for</code> 循环。可以将对 <code>drop</code> 的调用视作不再发送消息的信号。</p>
 <pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">extern</span> <span class="token keyword">crate</span> <span class="token module-declaration namespace">crossbeam</span><span class="token punctuation">;</span>
 <span class="token keyword">extern</span> <span class="token keyword">crate</span> <span class="token module-declaration namespace">crossbeam_channel</span><span class="token punctuation">;</span>
 
@@ -444,8 +444,7 @@ SHA256:2da6c248348f5ff0ee06e57222d6cd7ff2a4c652195db7325ee8327e44175f53 <span cl
 SHA256:6ea82342f0db613ce21a0f6df2e59ec2f0c9b05ed4e50f9288305c0d492b42b0 <span class="token string">"/home/user/Downloads/win11.iso"</span>
 SHA256:cb4ca11618c4e5a24f7a6bcff2eb2a14453f4d802772374386f69d710568aef8 <span class="token string">"/home/user/Downloads/win12.iso"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="1-6-将绘制分形的线程分派到线程池">1.6 将绘制分形的线程分派到线程池</h3>
-<p>  通过从朱莉娅集绘制分形来生成图像，该集合具有用于分布式计算的线程池。使用 <code>ImageBuffer::new</code> 为指定宽度和高度的输出图像分配内存，<code>Rgb::from_channels</code> 信道则计算输出图像的 <code>RGB</code> 像素值。使用 <code>ThreadPool</code> 创建线程池，线程池中的线程数量和使用 <code>num_cpus::get</code> 获取的系统内核数相等。<code>ThreadPool::execute</code> 将每个像素作为单独的作业接收。</p>
-<p><code>mpsc::channel</code> 信道接收作业，<code>Receiver::recv</code>接收器则检索作业。<code>ImageBuffer::put_pixel</code>处理数据，设置像素颜色。最后，<code>ImageBuffer::save</code> 将图像存储为 <code>output.png</code>。</p>
+<p>  通过从朱莉娅集绘制分形来生成图像，该集合具有用于分布式计算的线程池。使用 <code>ImageBuffer::new</code> 为指定宽度和高度的输出图像分配内存，<code>Rgb::from_channels</code> 信道则计算输出图像的 <code>RGB</code> 像素值。使用 <code>ThreadPool</code> 创建线程池，线程池中的线程数量和使用 <code>num_cpus::get</code> 获取的系统内核数相等。<code>ThreadPool::execute</code> 将每个像素作为单独的作业接收。<code>mpsc::channel</code> 信道接收作业，<code>Receiver::recv</code>接收器则检索作业。<code>ImageBuffer::put_pixel</code>处理数据，设置像素颜色。最后，<code>ImageBuffer::save</code> 将图像存储为 <code>output.png</code>。</p>
 <p>此小节需要在1.5小节基础上安装如下两个库</p>
 <ul>
 <li><code>num</code>库，可通过<code>cargo add num</code> 命令安装</li>
@@ -556,8 +555,9 @@ image <span class="token operator">=</span> <span class="token string">"0.24.6"<
     <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
-<li>运行<code>cargo run</code>将获得一张图片：</li>
+<li>运行<code>cargo run</code>将获得一张图片</li>
 </ul>
+<p><img src="/imgs/posts/pic-1680865445147.png" alt=""></p>
 <h2 id="2-数据并行">2. 数据并行</h2>
 <h3 id="2-1-并行改变数组中元素">2.1 并行改变数组中元素</h3>
 <p>  实例使用了 <code>rayon</code> 库，这是一个 Rust 程序设计语言的数据并行库。<code>rayon</code> 为任何并行可迭代的数据类型提供 <code>par_iter_mut</code> 方法。这是一个类迭代器的链，可以对链内的数据并行计算。</p>
