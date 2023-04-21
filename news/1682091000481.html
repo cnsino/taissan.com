@@ -701,7 +701,7 @@ Ashley,Dublin,32
 <li>运行<code>cargo run</code>校验</li>
 </ul>
 <h3 id="3-3-以小端模式（低位模式）字节顺序读写整数">3.3 以小端模式（低位模式）字节顺序读写整数</h3>
-<p>  需要安装<code>toml</code>库，可通过<code>cargo add toml</code> 命令安装</p>
+<p>  需要安装<code>byteorder</code>库，可通过<code>cargo add byteorder</code> 命令安装</p>
 <pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token punctuation">[</span><span class="token table class-name">dependencies</span><span class="token punctuation">]</span>
 <span class="token key property">byteorder</span> <span class="token punctuation">=</span> <span class="token string">"1.4.3"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 <p>  字节序 <code>byteorder</code> 可以反转结构化数据的有效字节。当通过网络接收信息时，这可能是必要的，例如接收到的字节来自另一个系统。</p>
