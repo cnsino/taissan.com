@@ -4,6 +4,99 @@
   
     
     <entry>
+      <title>【Rust Cookbook系列】十五 网络</title>
+      <link href="/news/1682605314170.html"/>
+      <url>/news/1682605314170.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-服务器">1. 服务器</h2><h3 id="1-1-监听未使用的-TCP-IP-端口">1.1 监听未使用的 <code>TCP/IP</code> 端口</h3><p>  实例中，程序将监听显示在控制台上的端口，直到一个请求被发出。当将端口设置为 0 时，<code>SocketAddrV4</code> 会分配一个随机端口。</p><pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span>io<span class="token punctuation">::</span></span><span class="token punctuation">&#123;</span><span class="token class-name">Error</span><span class="token punctuation">,</span> <span class="token class-name">Read</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span>net<span class="token punctuation">::</span></span><span class="token punctuation">&#123;</span><span class="token class-name">Ipv4Addr</span><span class="token punctuation">,</span> <span class="token class-name">SocketAddrV4</span><span class="token punctuation">,</span> <span class="token class-name">TcpListener</span><span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Result</span><span class="token operator">&lt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token class-name">Error</span><span class="token operator">></span> <span class="token punctuation">&#123;</span>    <span class="token keyword">let</span> loopback <span class="token operator">=</span> <span class="token class-name">Ipv4Addr</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token number">127</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">let</span> socket <span class="token operator">=</span> <span class="token class-name">SocketAddrV4</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span>loopback<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">let</span> listener <span class="token operator">=</span> <span class="token class-name">TcpListener</span><span class="token punctuation">::</span><span class="token function">bind</span><span class="token punctuation">(</span>socket<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>    <span class="token keyword">let</span> port <span class="token operator">=</span> listener<span class="token punctuation">.</span><span class="token function">local_addr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"在&#123;&#125;上监听，访问这个端口结束程序"</span><span class="token punctuation">,</span> port<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">let</span> <span class="token punctuation">(</span><span class="token keyword">mut</span> tcp_stream<span class="token punctuation">,</span> addr<span class="token punctuation">)</span> <span class="token operator">=</span> listener<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span> <span class="token comment">// 阻塞，直到被请求</span>    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"收到连接！ &#123;:?&#125; 正在发送数据。"</span><span class="token punctuation">,</span> addr<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">let</span> <span class="token keyword">mut</span> input <span class="token operator">=</span> <span class="token class-name">String</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token keyword">let</span> _ <span class="token operator">=</span> tcp_stream<span class="token punctuation">.</span><span class="token function">read_to_string</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">mut</span> input<span class="token punctuation">)</span><span class="token operator">?</span><span class="token punctuation">;</span>    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"&#123;:?&#125; 说 &#123;&#125;"</span><span class="token punctuation">,</span> addr<span class="token punctuation">,</span> input<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token class-name">Ok</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>  交互步骤如下：</p><ul><li><ol><li>运行<code>cargo run</code>输出（设命令终端为A）</li></ol></li></ul><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">在127.0.0.1:35963上监听，访问这个端口结束程序<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><ul><li><ol start="2"><li>新启命令终端，运行<code>telnet 127.0.0.1 35963</code>（设命令终端为B）,输出</li></ol></li></ul><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Trying <span class="token number">127.0</span>.0.1<span class="token punctuation">..</span>.Connected to <span class="token number">127.0</span>.0.1.Escape character is <span class="token string">'^]'</span><span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><ul><li><ol start="3"><li>此时服务端收到请求，终端A输出如下：</li></ol></li></ul><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">在127.0.0.1:35963上监听，访问这个端口结束程序收到连接！ <span class="token number">127.0</span>.0.1:56962 正在发送数据。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><ul><li><ol start="4"><li>在客户端（即终端B）上输入信息“你好”后，按<code>Ctrl+]</code>键进入 <code>telnet</code> 的命令模式，然后输入 <code>quit</code> 关闭连接。这样，<code>telnet</code> 客户端会发送一个正常的关闭连接请求，服务器就能收到数据并打印出来了：</li></ol></li></ul><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Trying <span class="token number">127.0</span>.0.1<span class="token punctuation">..</span>.Connected to <span class="token number">127.0</span>.0.1.Escape character is <span class="token string">'^]'</span><span class="token builtin class-name">.</span>你好^<span class="token punctuation">]</span>telnet<span class="token operator">></span> quitConnection closed.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ul><li><ol start="5"><li>此时服务端的输入如下：</li></ol></li></ul><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">在127.0.0.1:35963上监听，访问这个端口结束程序收到连接！ <span class="token number">127.0</span>.0.1:56962 正在发送数据。<span class="token number">127.0</span>.0.1:56962 说 你好<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程大陆 </category>
+          
+          <category> 锈浪宫 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> rust </tag>
+            
+            <tag> crates </tag>
+            
+            <tag> rustcookbook </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【Rust Cookbook系列】十四 内存管理</title>
+      <link href="/news/1682605267219.html"/>
+      <url>/news/1682605267219.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-常量">1. 常量</h2><p>  需要安装<code>lazy_static</code>库，可通过<code>cargo add lazy_static</code> 命令安装</p><pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token punctuation">[</span><span class="token table class-name">dependencies</span><span class="token punctuation">]</span><span class="token key property">lazy_static</span> <span class="token punctuation">=</span> <span class="token string">"1.4.0"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h3 id="1-1-声明延迟计算常量">1.1 声明延迟计算常量</h3><p>  声明延迟计算的常量 <code>HashMap</code>。<code>HashMap</code> 将被计算一次，随后存储在全局静态（全局堆栈）引用。</p><pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">use</span> <span class="token namespace">lazy_static<span class="token punctuation">::</span></span>lazy_static<span class="token punctuation">;</span><span class="token keyword">use</span> <span class="token namespace">std<span class="token punctuation">::</span>collections<span class="token punctuation">::</span></span><span class="token class-name">HashMap</span><span class="token punctuation">;</span><span class="token macro property">lazy_static!</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">static</span> <span class="token keyword">ref</span> <span class="token constant">PRIVILEGES</span><span class="token punctuation">:</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">'static</span> <span class="token keyword">str</span><span class="token punctuation">,</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token operator">&amp;</span><span class="token lifetime-annotation symbol">'static</span> <span class="token keyword">str</span><span class="token operator">>></span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>        <span class="token keyword">let</span> <span class="token keyword">mut</span> map <span class="token operator">=</span> <span class="token class-name">HashMap</span><span class="token punctuation">::</span><span class="token function">new</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        map<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token string">"James"</span><span class="token punctuation">,</span> <span class="token macro property">vec!</span><span class="token punctuation">[</span><span class="token string">"user"</span><span class="token punctuation">,</span> <span class="token string">"admin"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        map<span class="token punctuation">.</span><span class="token function">insert</span><span class="token punctuation">(</span><span class="token string">"Jim"</span><span class="token punctuation">,</span> <span class="token macro property">vec!</span><span class="token punctuation">[</span><span class="token string">"user"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        map    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token keyword">fn</span> <span class="token function-definition function">show_access</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token operator">&amp;</span><span class="token keyword">str</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">let</span> access <span class="token operator">=</span> <span class="token constant">PRIVILEGES</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"&#123;&#125;: &#123;:?&#125;"</span><span class="token punctuation">,</span> name<span class="token punctuation">,</span> access<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token keyword">let</span> access <span class="token operator">=</span> <span class="token constant">PRIVILEGES</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">"James"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"James: &#123;:?&#125;"</span><span class="token punctuation">,</span> access<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token function">show_access</span><span class="token punctuation">(</span><span class="token string">"Jim"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><ul><li>运行<code>cargo run</code>输出</li></ul><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">James: Some<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"user"</span>, <span class="token string">"admin"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>Jim: Some<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">"user"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程大陆 </category>
+          
+          <category> 锈浪宫 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> rust </tag>
+            
+            <tag> crates </tag>
+            
+            <tag> rustcookbook </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【Rust Cookbook系列】十三 硬件支持</title>
+      <link href="/news/1682605206734.html"/>
+      <url>/news/1682605206734.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-处理器">1. 处理器</h2><p>  需要安装<code>num_cpus</code>库，可通过<code>cargo add num_cpus</code> 命令安装</p><pre class="line-numbers language-toml" data-language="toml"><code class="language-toml"><span class="token punctuation">[</span><span class="token table class-name">dependencies</span><span class="token punctuation">]</span><span class="token key property">num_cpus</span> <span class="token punctuation">=</span> <span class="token string">"1.15.0"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><h3 id="1-1-检查逻辑-cpu-内核的数量">1.1 检查逻辑 cpu 内核的数量</h3><p>  使用 <code>[num_cpus::get]</code> 显示当前机器中的逻辑 <code>CPU</code> 内核的数量。</p><pre class="line-numbers language-rust" data-language="rust"><code class="language-rust"><span class="token keyword">fn</span> <span class="token function-definition function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>    <span class="token macro property">println!</span><span class="token punctuation">(</span><span class="token string">"逻辑核心数为 &#123;&#125;"</span><span class="token punctuation">,</span> <span class="token namespace">num_cpus<span class="token punctuation">::</span></span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><ul><li>运行<code>cargo run</code>输出</li></ul><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">逻辑核心数为 <span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程大陆 </category>
+          
+          <category> 锈浪宫 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> rust </tag>
+            
+            <tag> crates </tag>
+            
+            <tag> rustcookbook </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【Rust Cookbook系列】十二 文件系统</title>
       <link href="/news/1682515447413.html"/>
       <url>/news/1682515447413.html</url>
