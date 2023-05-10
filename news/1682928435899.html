@@ -13,7 +13,7 @@
 <meta property="article:tag" content="crates">
 <meta property="article:tag" content="rustcookbook">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.taissan.com/images/photo-1682929164.jpg"><link rel="shortcut icon" href="/imgs/favicon.png"><link rel="canonical" href="https://www.taissan.com/news/1682928435899.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+<meta name="twitter:image" content="https://www.taissan.com/images/photo-1682929164.jpg"><link rel="shortcut icon" href="/imgs/favicon.png"><link rel="canonical" href="https://www.taissan.com/news/1682928435899.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
   localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
@@ -52,7 +52,8 @@
   percent: {
     toc: true,
     rightside: false,
-  }
+  },
+  autoDarkmode: false
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
   title: '【Rust Cookbook系列】十九 Web 编程',
   isPost: true,
@@ -1342,18 +1343,20 @@ if ('Valine' === 'Valine' || !true) {
     loadValine()
   }
 }</script><script>function loadDisqus () {
-  var disqus_config = function () {
+  const disqus_config = function () {
     this.page.url = 'https://www.taissan.com/news/1682928435899.html'
     this.page.identifier = '/news/1682928435899.html'
     this.page.title = '【Rust Cookbook系列】十九 Web 编程'
-  };
+  }
 
-  window.disqusReset = () => {
+  const disqusReset = () => {
     DISQUS.reset({
       reload: true,
       config: disqus_config
     })
   }
+
+  btf.addModeChange('disqus', disqusReset)
 
   if (window.DISQUS) disqusReset()
   else {
@@ -1364,10 +1367,6 @@ if ('Valine' === 'Valine' || !true) {
       (d.head || d.body).appendChild(s);
     })();
   }
-
-  document.getElementById('darkmode').addEventListener('click', () => {
-    setTimeout(() => window.disqusReset(), 200)
-  })
 }
 
 if ('Valine' === 'Disqus' || !true) {
