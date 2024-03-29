@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>解决VSCode+WSL扩展联网失败的问题</title>
+      <link href="/news/1711697446236.html"/>
+      <url>/news/1711697446236.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-现象">1. 现象</h2><h3 id="环境说明">环境说明</h3><ul><li>Windows 11</li><li>WSL2</li><li>Ubuntu 22.04</li><li>VS Code 1.69.2</li><li>Clash for Windows 0.19.22 + TUN Mode</li></ul><p>在 VS Code 中，通过 Remote - WSL 打开 Ubuntu 子系统中的项目，扩展无法连接到网络，导致扩展功能无法正常使用。</p><h2 id="2-解决方法">2. 解决方法</h2><p>打开 VS Code 设置，并搜索 “proxy” ,设置如下proxy即可<br><img src="/imgs/posts/pic-1711697776.png" alt="Alt text"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 万法天书 </category>
+          
+          <category> 如何百科 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> wsl </tag>
+            
+            <tag> vscode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【Rust Cookbook系列】十九 Web 编程</title>
       <link href="/news/1682928435899.html"/>
       <url>/news/1682928435899.html</url>
