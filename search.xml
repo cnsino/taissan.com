@@ -4,7 +4,65 @@
   
     
     <entry>
-      <title>【如何百科】解决VSCode+WSL扩展联网失败的问题</title>
+      <title>【Python杂记】使用Python和PIL库将图片转换为WebP格式</title>
+      <link href="/archives/1712996359831"/>
+      <url>/archives/1712996359831</url>
+      
+        <content type="html"><![CDATA[<h1>使用 Python 和 PIL 库将图片转换为 WebP 格式</h1><h2 id="1-问题描述">1. 问题描述</h2><p>随着网页设计越来越注重速度和性能，选择合适的图片格式以及优化图片成为了一个不可忽视的问题。WebP 格式因其高效的压缩算法和良好的图像质量而受到开发者的欢迎。但是，将现有的 JPEG 和 PNG 图片转换为 WebP 格式可能会比较麻烦。因此，我们可以编写一个简单的 Python 脚本来批量处理这些图片。</p><h2 id="2-代码解析">2. 代码解析</h2><p>下面是一个 Python 脚本，该脚本使用 os 和 PIL 库来将指定文件夹中的 JPEG 和 PNG 图片转换为 WebP 格式。</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">convert_to_webp</span>(<span class="params">input_folder, output_folder</span>):</span><br><span class="line">    <span class="comment"># 创建输出文件夹</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(output_folder):</span><br><span class="line">        os.makedirs(output_folder)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 遍历输入文件夹中的所有文件</span></span><br><span class="line">    <span class="keyword">for</span> filename <span class="keyword">in</span> os.listdir(input_folder):</span><br><span class="line">        <span class="keyword">if</span> filename.endswith(<span class="string">&#x27;.jpg&#x27;</span>) <span class="keyword">or</span> filename.endswith(<span class="string">&#x27;.png&#x27;</span>):</span><br><span class="line">            <span class="comment"># 打开图像文件</span></span><br><span class="line">            <span class="keyword">with</span> Image.<span class="built_in">open</span>(os.path.join(input_folder, filename)) <span class="keyword">as</span> img:</span><br><span class="line">                <span class="comment"># 生成输出文件路径</span></span><br><span class="line">                output_path = os.path.join(output_folder, os.path.splitext(filename)[<span class="number">0</span>] + <span class="string">&#x27;.webp&#x27;</span>)</span><br><span class="line">                <span class="comment"># 将图像转换为 WebP 格式并保存</span></span><br><span class="line">                img.save(output_path, <span class="string">&#x27;WEBP&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    input_folder = <span class="string">&quot;source/images&quot;</span>  <span class="comment"># 输入文件夹路径</span></span><br><span class="line">    output_folder = <span class="string">&quot;source/images&quot;</span>  <span class="comment"># 输出文件夹路径</span></span><br><span class="line">    convert_to_webp(input_folder, output_folder)</span><br></pre></td></tr></table></figure><h3 id="代码功能解析：">代码功能解析：</h3><ul><li><code>convert_to_webp(input_folder, output_folder)</code>: 这是主函数，接受输入文件夹路径和输出文件夹路径作为参数。</li><li><code>os.makedirs(output_folder)</code>: 如果输出文件夹不存在，则创建它。</li><li><code>os.listdir(input_folder)</code>: 遍历输入文件夹中的所有文件。</li><li><code>Image.open(os.path.join(input_folder, filename))</code>: 打开图片文件。</li><li><code>os.path.splitext(filename)[0] + '.webp'</code>: 生成输出文件的路径。</li><li><code>img.save(output_path, 'WEBP')</code>: 将打开的图片转换为 WebP 格式并保存到输出文件夹。</li></ul><h2 id="3-使用方法">3. 使用方法</h2><p>要使用这个脚本，您需要首先安装 PIL 库。您可以使用以下命令进行安装：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install pillow</span><br></pre></td></tr></table></figure><p>然后，将上述代码保存为一个 Python 文件（例如 <code>convert_to_webp.py</code>），并将需要转换的图片放入 <code>source/images</code> 文件夹中。运行脚本后，<code>source/images</code> 文件夹中的所有 JPEG 和 PNG 图片都将被转换为 WebP 格式。</p><h2 id="4-总结">4. 总结</h2><p>通过使用 Python 和 PIL 库，我们可以轻松地将 JPEG 和 PNG 图片转换为 WebP 格式，从而优化网站的性能和加载速度。这个简单的脚本为开发者提供了一个方便的工具，帮助他们更有效地管理和优化网站图片。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程大陆 </category>
+          
+          <category> 盘蛇教 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+            <tag> PIL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【杂记】解决Vitepress在Vercel上的Hydration错误</title>
+      <link href="/archives/1712994926790"/>
+      <url>/archives/1712994926790</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-问题描述">1. 问题描述</h2><p>在尝试将 <strong>Vitepress</strong> 静态站点部署到 <strong>Vercel</strong> 时，遭遇了一个常见的问题。报错信息显示： <code>Hydration completed but contains mismatches</code>。这个错误提示意味着页面在客户端渲染时出现了不匹配的问题。</p><h2 id="2-解决方案">2. 解决方案</h2><p>为了解决这个问题，需要在 <code>vercel.json</code> 配置文件中进行一些设置。具体来说，需要启用 <code>cleanUrls</code> 选项，这将帮助正确处理URL和页面路由。以下是如何配置 <code>cleanUrls</code> 的示例：</p><pre><code class="language-json">&#123;  &quot;cleanUrls&quot;: true&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 混元圣记 </category>
+          
+          <category> 杂记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vitepress </tag>
+            
+            <tag> vercel </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>【杂记】解决VSCode+WSL扩展联网失败的问题</title>
       <link href="/archives/1711697446236"/>
       <url>/archives/1711697446236</url>
       
@@ -13,9 +71,9 @@
       
       <categories>
           
-          <category> 万法天书 </category>
+          <category> 混元圣记 </category>
           
-          <category> 如何百科 </category>
+          <category> 杂记 </category>
           
       </categories>
       
