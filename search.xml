@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>【如何百科】Ubuntu设置Nginx软件包源和安装</title>
+      <link href="/archives/1713079619365"/>
+      <url>/archives/1713079619365</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-安装必要的工具和证书">1. 安装必要的工具和证书</h2><p>首先，安装 curl、gnupg2、ca-certificates、lsb-release 和 ubuntu-keyring，并更新软件包列表：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install curl gnupg2 ca-certificates lsb-release ubuntu-keyring</span><br></pre></td></tr></table></figure><h2 id="2-导入Nginx签名密钥">2. 导入Nginx签名密钥</h2><p>使用 curl 下载Nginx签名密钥，然后使用 gpg 命令导入密钥，并将其保存到 /usr/share/keyrings/nginx-archive-keyring.gpg：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl https://nginx.org/keys/nginx_signing.key | gpg --dearmor | sudo <span class="built_in">tee</span> /usr/share/keyrings/nginx-archive-keyring.gpg &gt;/dev/null</span><br></pre></td></tr></table></figure><h2 id="3-验证导入的密钥">3. 验证导入的密钥</h2><p>运行以下命令以验证导入的Nginx签名密钥：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gpg --dry-run --quiet --no-keyring --import --import-options import-show /usr/share/keyrings/nginx-archive-keyring.gpg</span><br></pre></td></tr></table></figure><h2 id="4-配置Nginx软件包源">4. 配置Nginx软件包源</h2><p>使用以下命令将Nginx软件包源添加到 /etc/apt/sources.list.d/nginx.list 文件中：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] http://nginx.org/packages/mainline/ubuntu `lsb_release -cs` nginx&quot;</span> | sudo <span class="built_in">tee</span> /etc/apt/sources.list.d/nginx.list</span><br></pre></td></tr></table></figure><h2 id="5-设置软件包优先级">5. 设置软件包优先级</h2><p>为Nginx软件包设置优先级，以确保优先使用官方Nginx软件包：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n&quot;</span> | sudo <span class="built_in">tee</span> /etc/apt/preferences.d/99nginx</span><br></pre></td></tr></table></figure><h2 id="6-安装Nginx">6. 安装Nginx</h2><p>现在，使用以下命令安装Nginx：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install nginx</span><br></pre></td></tr></table></figure><h2 id="7-启动和检查Nginx服务状态">7. 启动和检查Nginx服务状态</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">service nginx start</span><br><span class="line">service nginx status</span><br></pre></td></tr></table></figure><h2 id="8-设置Nginx开机自启">8. 设置Nginx开机自启</h2><p>使用 systemctl 命令启用并立即启动Nginx服务：</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl <span class="built_in">enable</span> --now nginx</span><br></pre></td></tr></table></figure><p>通过以上步骤，您应该已经成功地在Ubuntu系统上安装并配置了Nginx。现在，您可以开始使用Nginx来部署和管理您的Web应用程序。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 万法天书 </category>
+          
+          <category> 如何百科 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> nginx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>【Python杂记】使用Python和PIL库将图片转换为WebP格式</title>
       <link href="/archives/1712996359831"/>
       <url>/archives/1712996359831</url>
